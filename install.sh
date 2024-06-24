@@ -20,6 +20,8 @@ if [ "$RUST" = "" ]; then
    echo ""
    echo "Make sure u use the right rust build for raspberry, preferrable 'nightly'"
    echo "Also pick 'minimal' for the raspberry PI, to save disk space"
+   echo "When building librespot, a log of memory is needed. Be sure to have about"
+   echo "2GB of virtual memory available (on a 1GB system)"
    echo ""
    echo "first"
    exit 0
