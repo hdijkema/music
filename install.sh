@@ -38,7 +38,7 @@ apt-get -y install git \
                    librust-pkg-config-dev libstd-rust-dev libstdc++-12-dev libtinfo-dev libtirpc-dev libxml2-dev \
                    libz3-dev linux-libc-dev llvm-14-dev python3-dev python3.11-dev zlib1g-dev \
                    libasound2-dev libasound2-plugin-bluez libasound2-plugin-smixer libasound2-plugins alsaplayer-alsa \
-                   cargo binutils g++ autoconf automake pkg-config \ 
+                   cargo binutils g++ autoconf automake pkg-config \
                    mpg123 mpd mympd
 
 echo "Installing Librespot Scripts"
@@ -75,6 +75,7 @@ cp configs/mpd.conf /etc
 cp configs/shairport-sync.conf /etc
 cp configs/asound.conf /etc
 cp configs/libao.conf /etc
+cp configs/mympd/* /var/lib/mympd/config
 
 echo ""
 echo "flac 123"
