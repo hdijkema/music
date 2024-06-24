@@ -19,6 +19,7 @@ if [ "$RUST" = "" ]; then
    echo "    source $HOME/.cargo/env"
    echo ""
    echo "Make sure u use the right rust build for raspberry, preferrable 'nightly'"
+   echo "Also pick 'minimal' for the raspberry PI, to save disk space"
    echo ""
    echo "first"
    exit 0
@@ -147,5 +148,7 @@ systemctl start spotify-connect
 
 echo ""
 echo "done."
+echo ""
+echo "Consider enabling the hardware watchdog on raspberry pi"
 echo ""
 
