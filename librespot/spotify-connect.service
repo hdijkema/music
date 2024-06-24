@@ -1,0 +1,15 @@
+[Unit]
+Description=Spotify Connect Daemon
+After=mpd.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5
+User=root
+ExecStart=/bin/bash {BASE}/librespot/start-spotify-connect.sh
+
+[Install]
+WantedBy=multi-user.target
+
