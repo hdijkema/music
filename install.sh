@@ -25,8 +25,15 @@ if [ "$RUST" = "" ]; then
 fi
 
 BASE=/opt/music
+MUSIC_DIR=`cat /tmp/music.conf | grep music_dir | sed -e 's/[^=]*[=]\\s*//' | sed -e 's/\\s*$//'`
 echo "Installing to $BASE"
+echo "Music Dir = $MUSIC_DIR"
 echo "---------------------------------------------------------------"
+
+if [ ! -e $MUSIC_DIR ]; then
+   echo "Music Dir '$MUSIC_DIR' does not exist"
+   exit 1
+fi
 
 
 echo "Creating $BASE/<subdirs>"
@@ -39,7 +46,6 @@ mkdir -p $BASE/shairport-sync
 mkdir -p $BASE/src
 mkdir -p $BASE/log
 mkdir -p $BASE/run
-
 
 echo "Installing libraries"
 echo "---------------------------------------------------------------"
@@ -89,7 +95,7 @@ do
    if [ "$file" = "/tmp/music.conf" ]; then
       tfile="etc/music.conf"
    fi
-   cat $file | sed -e 's%{BASE}%$BASE%g' > $BASE/$tfile
+   cat $file | sed -e "s%{BASE}%$BASE%g" > $BASE/$tfile
 done
 mkfifo $BASE/run/librespot.fifo
 
@@ -109,8 +115,8 @@ cp $BASE/librespot/spotify-connect.service /etc/systemd/system/
 echo ""
 echo "copy configuration files"
 echo "---------------------------------------------------------------"
-cp configs/mpd.conf /etc
-cp configs/shairport-sync.conf /etc
+cat configs/mpd.conf | sed -e "s%{BASE}%$BASE%g" -e "s%{MUSIC_DIR}%$MUSIC_DIR%g" > /etc/mpd.conf
+cat configs/shairport-sync.conf | sed -e "s%{BASE}%$BASE%g" -e "s%{MUSIC_DIR}%$MUSIC_DIR%g" > /etc/shairport-sync.conf
 cp configs/asound.conf /etc
 cp configs/libao.conf /etc
 cp configs/mympd/* /var/lib/mympd/config
