@@ -11,7 +11,7 @@ if [ ! -e /tmp/music.conf ]; then
    exit 0
 fi
 
-RUST=`rustcc -vV`
+RUST=`rustc -vV`
 if [ "$RUST" = "" ]; then
    echo "Execute "
    echo ""
