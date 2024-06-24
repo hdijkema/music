@@ -143,4 +143,6 @@ systemctl start spotify-connect
 echo ""
 echo "done."
 echo ""
+echo "Consider enabling the hardware watchdog on raspberry pi"
+echo ""
 
