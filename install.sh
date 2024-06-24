@@ -18,6 +18,8 @@ if [ "$RUST" = "" ]; then
    echo "    curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh"
    echo "    source $HOME/.cargo/env"
    echo ""
+   echo "Make sure u use the right rust build for raspberry, preferrable 'nightly'"
+   echo ""
    echo "first"
    exit 0
 fi
@@ -45,7 +47,7 @@ echo "---------------------------------------------------------------"
 apt-get install aptitude
 
 MYMPD=`aptitude search mympd`
-if [ "$MYMPD" != "" ]; then
+if [ "$MYMPD" = "" ]; then
   # Download JCorporation's signing key locally and install it in a dedicated keyring
   curl http://download.opensuse.org/repositories/home:/jcorporation/Debian_11/Release.key | gpg --no-default-keyring --keyring /usr/share/keyrings/jcorporation.github.io.gpg --import
 
@@ -116,12 +118,14 @@ cp configs/mympd/* /var/lib/mympd/config
 echo ""
 echo "flac 123"
 echo "---------------------------------------------------------------"
+mkdir -p src
 cd src
 git clone https://github.com/flac123/flac123.git
 cd flac123
 ./configure --prefix=$BASE
 make
 make install
+cd ..
 
 echo ""
 echo "installing services"
