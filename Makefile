@@ -9,11 +9,11 @@ all:
 clean: uninstall
 
 install:
-	./install.sh 
+	@./install.sh 
 
 
 uninstall:
-	./uninstall.sh
+	@./uninstall.sh
 
 remove: uninstall
 
