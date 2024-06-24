@@ -103,6 +103,7 @@ done
 mkfifo $BASE/run/librespot.fifo
 
 chmod 755 $BASE/librespot/*.sh
+chmod 600 $BASE/etc/music.conf
 
 echo ""
 echo "cargo librespot"
@@ -147,6 +148,10 @@ systemctl start mympd
 systemctl start spotify-connect
 
 
+echo ""
+echo "removing /tmp/music.conf"
+echo "---------------------------------------------------------------"
+rm -f /tmp/music.conf
 
 echo ""
 echo "done."
