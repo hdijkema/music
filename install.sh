@@ -157,5 +157,6 @@ echo ""
 echo "done."
 echo ""
 echo "Consider enabling the hardware watchdog on raspberry pi"
+echo "Also look closely at /etc/asound.conf to configure the right sound card (aplay -L)"
 echo ""
 
