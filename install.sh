@@ -11,6 +11,17 @@ if [ ! -e /tmp/music.conf ]; then
    exit 0
 fi
 
+RUST=`rustcc -vV`
+if [ "$RUST" = "" ]; then
+   echo "Execute "
+   echo ""
+   echo "    curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh"
+   echo "    source $HOME/.cargo/env"
+   echo ""
+   echo "first"
+   exit 0
+fi
+
 BASE=/opt/music
 echo "Installing to $BASE"
 echo "---------------------------------------------------------------"
@@ -58,7 +69,7 @@ apt-get -y install git \
                    librust-pkg-config-dev libstd-rust-dev libstdc++-12-dev libtinfo-dev libtirpc-dev libxml2-dev \
                    libz3-dev linux-libc-dev llvm-14-dev python3-dev python3.11-dev zlib1g-dev \
                    libasound2-dev libasound2-plugin-bluez libasound2-plugin-smixer libasound2-plugins alsaplayer-alsa \
-                   cargo binutils g++ autoconf automake pkg-config \
+                   binutils g++ autoconf automake pkg-config \
                    mpg123 mpd mympd
 
 echo "Installing Librespot Scripts"
