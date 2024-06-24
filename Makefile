@@ -9,7 +9,10 @@ all:
 clean: uninstall
 
 install:
-	@./install.sh 
+	@./install.sh | tee /tmp/music_install.log
+	@echo ""
+	@echo "Consult /tmp/music_install.log if you need to check anything"
+	@echo ""
 
 
 uninstall:
