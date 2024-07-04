@@ -86,7 +86,7 @@ apt-get -y install git \
                    libz3-dev linux-libc-dev llvm-14-dev python3-dev python3.11-dev zlib1g-dev \
                    libasound2-dev libasound2-plugin-bluez libasound2-plugin-smixer libasound2-plugins alsaplayer-alsa \
                    binutils g++ autoconf automake pkg-config \
-                   mpg123 mpd mympd mpc
+                   mpg123 mpd mympd mpc shairport-sync
 
 echo "Installing Librespot Scripts"
 echo "---------------------------------------------------------------"
