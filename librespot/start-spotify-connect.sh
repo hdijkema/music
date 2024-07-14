@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BASE={BASE}
+BASE=/opt/music
 LOG_BASE="$BASE/log"
 
 LOG=$LOG_BASE/librespot.log
@@ -12,16 +12,16 @@ SPOTIFY_USER=`cat $BASE/etc/music.conf | grep spotify_user | sed -e 's/[^=]*[=]\
 SPOTIFY_PASS=`cat $BASE/etc/music.conf | grep spotify_pass | sed -e 's/[^=]*[=]\\s*//' | sed -e 's/\\s*$//'`
 CONNECT_NAME=`cat $BASE/etc/music.conf | grep connect_name | sed -e 's/[^=]*[=]\\s*//' | sed -e 's/\\s*$//'`
 
-echo "status_device=$STATUS_DEVICE"
+echo "status_device=$STATUS_DEVICE" >>$LOG
 
 if [ ! -e $STATUS_DEVICE ]; then 
    echo "Not found."
    exit 1
 fi
 
-echo "status_check_interval=$SEC"
-echo "Spotify User=$SPOTIFY_USER"
-echo "Spotify Connect Name=$CONNECT_NAME"
+echo "status_check_interval=$SEC" >>$LOG
+echo "Spotify User=$SPOTIFY_USER" >>$LOG
+echo "Spotify Connect Name=$CONNECT_NAME" >>$LOG
 
 EVENT_HANDLER="$BASE/librespot/sink_event.sh"
 EVENT_FILE=$BASE/run/last_event.librespot
@@ -51,9 +51,15 @@ fi
 
 export PATH=$PATH:$BASE/cargo/bin
 
-librespot --emit-sink-events --onevent $EVENT_HANDLER --backend pipe --device $FIFO -n "$CONNECT_NAME" -b 320 -c $BASE/runspotify-cache -u $SPOTIFY_USER -p $SPOTIFY_PASS >>$LOG 2>&1 &
-
 while [ 1 ]; do
+  LIBRESPOT=`ps ax | grep librespot | grep -v start | grep -v aplay | grep -v grep | grep -v tail`
+  if [ "$LIBRESPOT" = "" ]; then
+    echo librespot --emit-sink-events --onevent $EVENT_HANDLER --backend pipe --device $FIFO -n "$CONNECT_NAME" -b 320 -c $BASE/runspotify-cache -u  "$SPOTIFY_USER" -p "<password>" >>$LOG 2>&1 &
+    #librespot --emit-sink-events --onevent $EVENT_HANDLER --backend pipe --device $FIFO -n "$CONNECT_NAME" -b 320 -c $BASE/runspotify-cache -u "$SPOTIFY_USER" -p "$SPOTIFY_PASS" >>$LOG 2>&1 &
+    #librespot --emit-sink-events --onevent $EVENT_HANDLER --backend rodio -n "$CONNECT_NAME" -b 320 -c $BASE/runspotify-cache -u "$SPOTIFY_USER" -p "$SPOTIFY_PASS" >>$LOG 2>&1 &
+    librespot --emit-sink-events --onevent $EVENT_HANDLER --backend pipe -n "$CONNECT_NAME" -b 320 -c $BASE/runspotify-cache -u "$SPOTIFY_USER" -p "$SPOTIFY_PASS" | /opt/music/librespot/player >>$LOG 2>&1 &
+  fi
+
   STATUS=`cat $STATUS_DEVICE`
   if [ "$STATUS" = "closed" ]; then
      LAST_EVENT=`cat $EVENT_FILE`
@@ -63,6 +69,7 @@ while [ 1 ]; do
         alog "Playback device: stopped playing"
      fi
   fi
+
   sleep $SEC
 done
 
