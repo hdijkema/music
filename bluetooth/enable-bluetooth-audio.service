@@ -1,0 +1,15 @@
+[Unit]
+Description=Bluetooth Enabling Service
+After=bluetooth.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5
+User=root
+ExecStart={BASE}/bluetooth/enable-bluetooth-audio.sh
+
+[Install]
+WantedBy=multi-user.target
+

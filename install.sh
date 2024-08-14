@@ -157,6 +157,7 @@ systemctl enable mpd
 systemctl enable mympd
 systemctl enable spotify-connect
 systemctl enable bluetooth
+systemctl enable enable-bluetooth-audio
 systemctl enable bluealsa
 systemctl enable bluealsa-aplay
 systemctl enable bt-agent
@@ -164,9 +165,11 @@ systemctl start mpd
 systemctl start mympd
 systemctl start spotify-connect
 systemctl start bluetooth
+systemctl start enable-bluetooth-audio
 systemctl start bluealsa
 systemctl start bluealsa-aplay
 systemctl start bt-agent
+
 
 echo ""
 echo "removing /tmp/music.conf"
