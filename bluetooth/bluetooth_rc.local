@@ -1,0 +1,6 @@
+/usr/bin/bluetoothctl <<EOF
+power on
+discoverable on
+discoverable-timeout 0
+pairable on
+EOF

@@ -144,7 +144,11 @@ echo ""
 echo "bluetooth"
 echo "---------------------------------------------------------------"
 apt-get -y install libasound2-plugin-bluez bluez-tools bluez-alsa-utils rfkill
-
+cp $BASE/bluetooth/bt-agent.service /etc/systemd/system/
+RC_BT=`grep bluetooth_rc.local /etc/rc.local`
+if [ "$RC_BT" = "" ]; then
+   echo ". $BASE/bluetooth/bluetooth_rc.local" >>/etc/rc.local
+fi
 
 echo ""
 echo "installing services"
@@ -155,12 +159,14 @@ systemctl enable spotify-connect
 systemctl enable bluetooth
 systemctl enable bluealsa
 systemctl enable bluealsa-aplay
+systemctl enable bt-agent
 systemctl start mpd
 systemctl start mympd
 systemctl start spotify-connect
 systemctl start bluetooth
 systemctl start bluealsa
 systemctl start bluealsa-aplay
+systemctl start bt-agent
 
 echo ""
 echo "removing /tmp/music.conf"

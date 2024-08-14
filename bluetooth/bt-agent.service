@@ -1,0 +1,15 @@
+[Unit]
+Description=Bluetooth Agent for Connecting/Pairing
+After=bluealsa-play.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5
+User=root
+ExecStart=/usr/bin/bt-agent -c DisplayOnly -p {BASE}/bluetooth/pins.cfg
+
+[Install]
+WantedBy=multi-user.target
+
