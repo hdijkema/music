@@ -57,7 +57,7 @@ while [ 1 ]; do
     echo librespot --emit-sink-events --onevent $EVENT_HANDLER --backend pipe --device $FIFO -n "$CONNECT_NAME" -b 320 -c $BASE/runspotify-cache -u  "$SPOTIFY_USER" -p "<password>" >>$LOG 2>&1 &
     #librespot --emit-sink-events --onevent $EVENT_HANDLER --backend pipe --device $FIFO -n "$CONNECT_NAME" -b 320 -c $BASE/runspotify-cache -u "$SPOTIFY_USER" -p "$SPOTIFY_PASS" >>$LOG 2>&1 &
     #librespot --emit-sink-events --onevent $EVENT_HANDLER --backend rodio -n "$CONNECT_NAME" -b 320 -c $BASE/runspotify-cache -u "$SPOTIFY_USER" -p "$SPOTIFY_PASS" >>$LOG 2>&1 &
-    librespot --emit-sink-events --onevent $EVENT_HANDLER --backend pipe -n "$CONNECT_NAME" -b 320 -c $BASE/runspotify-cache -u "$SPOTIFY_USER" -p "$SPOTIFY_PASS" | /opt/music/librespot/player >>$LOG 2>&1 &
+    librespot --initial-volume 100 --emit-sink-events --onevent $EVENT_HANDLER --backend pipe -n "$CONNECT_NAME" -b 320 -c $BASE/runspotify-cache -u "$SPOTIFY_USER" -p "$SPOTIFY_PASS" | /opt/music/librespot/player >>$LOG 2>&1 &
   fi
 
   STATUS=`cat $STATUS_DEVICE`

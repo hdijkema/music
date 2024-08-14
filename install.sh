@@ -139,16 +139,28 @@ make
 make install
 cd ..
 
+
+echo ""
+echo "bluetooth"
+echo "---------------------------------------------------------------"
+apt-get -y install libasound2-plugin-bluez bluez-tools bluez-alsa-utils rfkill
+
+
 echo ""
 echo "installing services"
 echo "---------------------------------------------------------------"
 systemctl enable mpd
 systemctl enable mympd
 systemctl enable spotify-connect
+systemctl enable bluetooth
+systemctl enable bluealsa
+systemctl enable bluealsa-aplay
 systemctl start mpd
 systemctl start mympd
 systemctl start spotify-connect
-
+systemctl start bluetooth
+systemctl start bluealsa
+systemctl start bluealsa-aplay
 
 echo ""
 echo "removing /tmp/music.conf"
