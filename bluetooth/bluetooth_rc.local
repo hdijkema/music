@@ -1,3 +1,4 @@
+/usr/sbin/rfkill unblock bluetooth
 /usr/bin/bluetoothctl <<EOF
 power on
 discoverable on
