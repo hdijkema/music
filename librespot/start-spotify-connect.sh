@@ -51,6 +51,8 @@ fi
 
 export PATH=$PATH:$BASE/cargo/bin
 
+rm -rf $BASE/runspotify-cache 
+
 while [ 1 ]; do
   LIBRESPOT=`ps ax | grep librespot | grep -v start | grep -v aplay | grep -v grep | grep -v tail`
   if [ "$LIBRESPOT" = "" ]; then
