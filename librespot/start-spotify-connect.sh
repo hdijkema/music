@@ -43,6 +43,7 @@ function alog()
 
 echo "#########################################" >>$LOG
 echo "Spotify Connect Service ($@)" >>$LOG
+echo "Running librespot in discovery mode (no username/password" >>$LOG
 
 if [ ! -e $FIFO ]; then
    mkdir -p $BASE/run
@@ -56,10 +57,10 @@ rm -rf $BASE/runspotify-cache
 while [ 1 ]; do
   LIBRESPOT=`ps ax | grep librespot | grep -v start | grep -v aplay | grep -v grep | grep -v tail`
   if [ "$LIBRESPOT" = "" ]; then
-    echo librespot --emit-sink-events --onevent $EVENT_HANDLER --backend pipe --device $FIFO -n "$CONNECT_NAME" -b 320 -c $BASE/runspotify-cache -u  "$SPOTIFY_USER" -p "<password>" >>$LOG 2>&1 &
+    echo librespot --emit-sink-events --onevent $EVENT_HANDLER --backend pipe --device $FIFO -n "$CONNECT_NAME" -b 320 -c $BASE/runspotify-cache >>$LOG 2>&1 &
     #librespot --emit-sink-events --onevent $EVENT_HANDLER --backend pipe --device $FIFO -n "$CONNECT_NAME" -b 320 -c $BASE/runspotify-cache -u "$SPOTIFY_USER" -p "$SPOTIFY_PASS" >>$LOG 2>&1 &
     #librespot --emit-sink-events --onevent $EVENT_HANDLER --backend rodio -n "$CONNECT_NAME" -b 320 -c $BASE/runspotify-cache -u "$SPOTIFY_USER" -p "$SPOTIFY_PASS" >>$LOG 2>&1 &
-    librespot --initial-volume 100 --emit-sink-events --onevent $EVENT_HANDLER --backend pipe -n "$CONNECT_NAME" -b 320 -c $BASE/runspotify-cache -u "$SPOTIFY_USER" -p "$SPOTIFY_PASS" | /opt/music/librespot/player >>$LOG 2>&1 &
+    librespot --initial-volume 100 --emit-sink-events --onevent $EVENT_HANDLER --backend pipe -n "$CONNECT_NAME" -b 320 -c $BASE/runspotify-cache | /opt/music/librespot/player >>$LOG 2>&1 &
   fi
 
   STATUS=`cat $STATUS_DEVICE`
