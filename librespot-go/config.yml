@@ -1,0 +1,6 @@
+device_name: Mahler Spotify Connect
+credentials:
+  type: zeroconf
+bitrate: 320
+initial_volume: 100
+log_level: debug

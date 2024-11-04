@@ -1,0 +1,15 @@
+[Unit]
+Description=Spotify Connect Daemon (Go)
+After=mpd.service
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5
+User=root
+ExecStart=/opt/music/librespot-go/go-librespot --config_dir /opt/music/librespot-go
+
+[Install]
+WantedBy=multi-user.target
+
